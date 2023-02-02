@@ -10,7 +10,7 @@ public abstract class Managers {
 
     public static HistoryManager historyManager() {
         if (HISTORY_MANAGER == null) {
-            HISTORY_MANAGER = new HistoryManager();
+            HISTORY_MANAGER = new HistoryManager.BasedOnCustomLinkedListHistoryManager();
         }
         return HISTORY_MANAGER;
     }
