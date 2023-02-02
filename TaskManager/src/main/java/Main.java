@@ -3,7 +3,7 @@
  */
 public class Main {
     public static void main(String[] args){
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = Managers.taskManager();
 
 /*        // option 1: nullable id
         SingleTask singleTask = new SingleTask(1, "Pure task", Status.NEW);
@@ -28,5 +28,8 @@ public class Main {
 
         System.out.println(taskManager.getTaskById(0));
 
+        System.out.println(Managers.taskManager().getTaskById(0)); // ?
+
+        System.out.println("Same object?: " + Managers.taskManager().equals(Managers.taskManager()));
     }
 }

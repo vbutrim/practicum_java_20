@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
@@ -10,9 +11,22 @@ public class TaskManager {
     // option 1: 1 hashmap
     private final HashMap<Integer, Task> taskById;
 
-    public TaskManager() {
+    private final HistoryManager historyManager;
+
+    public TaskManager(HistoryManager historyManager) {
+        this.historyManager = historyManager;
         this.taskIdGenerator = new TaskIdGenerator();
         this.taskById = new HashMap<>();
+    }
+
+    public List<Task> getHistory() {
+        List<Task> historyTasks = new ArrayList<>();
+        for (int taskId : historyManager.getHistoryIds()) {
+            if (taskById.containsKey(taskId)) {
+                historyTasks.add(taskById.get(taskId));
+            }
+        }
+        return Collections.unmodifiableList(historyTasks);
     }
 
     // option 2: 3 hashmap
@@ -28,6 +42,8 @@ public class TaskManager {
         singleTask.setId(taskIdGenerator.getNextFreeId());
         // 2: save task
         taskById.put(singleTask.getId(), singleTask);
+
+        historyManager.add(singleTask);
     }
 
     /**
